@@ -1,0 +1,24 @@
+{
+  "name": "co2-of-front",
+  "version": "0.0.1",
+  "description": "A little add to tgwf/co2 to calculate co2 of front at all stage of the page lifecycle",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InspMaurice/co2-of-front.git"
+  },
+  "keywords": [
+    "co2",
+    "carbon",
+    "web"
+  ],
+  "author": "Romain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/InspMaurice/co2-of-front/issues"
+  },
+  "homepage": "https://github.com/InspMaurice/co2-of-front#readme"
+}
