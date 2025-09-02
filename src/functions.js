@@ -28,17 +28,23 @@ export class Co2Component {
     window.addEventListener("load", async () => {
       console.log(this.firstEstimationCo2());
       this.emissions = this.firstEstimationCo2();
-      
+      this.allowCheck = true;
+
       console.log(this.emissions);
 
       setTimeout(async () => {
+        this.allowCheck = false;
         this.emissions = await this.getInitialPageWeightInKB();
       }, 2000);
 
     });
   }
 
-
+  getCurrentCo2() {
+    if (this.allowCheck) {
+      return this.emissions;
+    }
+  }
 
   isExcludedDomain(resourceName) {
     return this.#EXCLUDED_DOMAINS.some(domain => resourceName.includes(domain));
