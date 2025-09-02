@@ -115,6 +115,7 @@ export class Co2Component {
   }
 
   async getPageValues(pageValues, relevantResources) {
+    console.log("Calculating page values for resources:", relevantResources);
     if (relevantResources.length === 0) return pageValues;
 
     for (const res of relevantResources) {
@@ -134,6 +135,7 @@ export class Co2Component {
         const co2CalculOptions = await this.retryOperation(() =>
           this.getOptionsCo2(size, domain)
         );
+        console.log("last step before co2 calculation");
         const co2weightResult = this.getCo2byItem(
           size,
           isgreen,
@@ -205,9 +207,11 @@ export class Co2Component {
   }
 
   getCo2byItem(item, greenHosting, options) {
+    console.log("Calculating CO2 for item:", item);
     try {
       const oneByte = new co2({ model: "1byte" });
       const result = oneByte.perByte(item, greenHosting, options);
+      console.log("CO2 Calculation Result:", result);
       return Number(result.co2);
     } catch (err) {
       console.error("Erreur calcul CO2:", err);
