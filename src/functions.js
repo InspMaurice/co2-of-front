@@ -215,7 +215,7 @@ export class Co2Component {
     console.log("Calculating CO2 for item:", item);
     try {
       const oneByte = new co2({ model: "1byte" });
-      const result = oneByte.perByte(item, greenHosting, options);
+      const result = oneByte.perByteTrace(item, greenHosting, options);
       console.log("CO2 Calculation Result:", result);
       return Number(result.co2);
     } catch (err) {
