@@ -1,6 +1,6 @@
 {
   "name": "co2-of-front",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A little add to tgwf/co2 to calculate co2 of front at all stage of the page lifecycle",
   "main": "src/index.js",
   "scripts": {
