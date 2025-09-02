@@ -1,5 +1,5 @@
-import { Co2Component } from './src/functions.js';
-import { ExtendedCo2Component } from './src/extented.js';
+const { Co2Component } = require('./functions.js');
+const { ExtendedCo2Component } = require('./extented.js');
 
 module.exports = {
     Co2Component,
