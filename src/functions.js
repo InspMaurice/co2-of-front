@@ -26,7 +26,10 @@ export class Co2Component {
 
   constructor() {
     window.addEventListener("load", async () => {
+      console.log(this.firstEstimationCo2());
       this.emissions = this.firstEstimationCo2();
+      
+      console.log(this.emissions);
 
       setTimeout(async () => {
         this.emissions = await this.getInitialPageWeightInKB();
@@ -143,6 +146,7 @@ export class Co2Component {
         );
 
         pageValues.co2weight += co2weightResult;
+        console.log(co2weightResult);
       } catch (error) {
         console.error("Error processing resource:", res.name, error);
       }
