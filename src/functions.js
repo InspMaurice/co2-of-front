@@ -82,6 +82,7 @@ export class Co2Component {
       return sum + size;
     }, 0);
 
+    console.log(Number(this.getCo2byItem(totalBytes, false, this.gridIntensityOptionsDefault).toFixed(3)));
     return {
       weight: totalBytes,
       co2weight: Number(
