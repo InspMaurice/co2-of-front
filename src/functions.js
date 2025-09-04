@@ -42,7 +42,9 @@ export class Co2Component {
   }
 
   getCurrentCo2() {
-    return this.emissions;
+    if (this.getCo2Check) {
+      return this.emissions;
+    }
   }
 
   isExcludedDomain(resourceName) {
