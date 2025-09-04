@@ -4,6 +4,7 @@ declare module 'co2-of-front' {
     allowCheck: boolean;
     constructor();
     getCurrentCo2(): { weight: number; co2weight: number };
+    getCo2Check(): boolean;
   }
 
   export class ExtendedCo2Component extends Co2Component {
