@@ -5,7 +5,7 @@ export class Co2Component {
   emissions = { weight: 0, co2weight: 0 };
   
   allowCheck = false;
-  getCo2Check = false;
+  currentState=0;
   #MAX_RETRIES = 3;
   #RETRY_DELAY = 1000;
   #EXCLUDED_DOMAINS = [
@@ -29,13 +29,13 @@ export class Co2Component {
     window.addEventListener("load", async () => {
       console.log(this.firstEstimationCo2());
       this.emissions = this.firstEstimationCo2();
-      this.getCo2Check = true;
+      this.currentState=1;
 
       console.log(this.emissions);
 
       setTimeout(async () => {
-        this.getCo2Check = false;
         this.emissions = await this.getInitialPageWeightInKB();
+        this.currentState=2;
       }, 2000);
 
     });
