@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/InspMaurice/co2-of-front/issues"
   },
-  "homepage": "https://github.com/InspMaurice/co2-of-front#readme"
+  "homepage": "https://github.com/InspMaurice/co2-of-front#readme",
+  "dependencies": {
+    "@tgwf/co2": "0.16.8"
+  }
 }

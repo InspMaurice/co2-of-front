@@ -16,7 +16,7 @@ export class Co2Component {
   gridIntensityOptionsDefault = {
     gridIntensity: {
       device: { country: "FRA" },
-      dataCenter: 300,
+      dataCenter: 207,
       network: { country: "FRA" }
     }
   };
@@ -41,9 +41,7 @@ export class Co2Component {
   }
 
   getCurrentCo2() {
-    if (this.allowCheck) {
-      return this.emissions;
-    }
+    return this.emissions;
   }
 
   isExcludedDomain(resourceName) {
