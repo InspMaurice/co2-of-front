@@ -3,7 +3,7 @@ declare module 'co2-of-front' {
     emissions: { weight: number; co2weight: number };
     allowCheck: boolean;
     constructor();
-    // Ajoutez ici les méthodes publiques si besoin
+    getCurrentCo2(): { weight: number; co2weight: number };
   }
 
   export class ExtendedCo2Component extends Co2Component {
