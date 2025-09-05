@@ -27,11 +27,9 @@ export class Co2Component {
 
   constructor() {
     window.addEventListener("load", async () => {
-      console.log(this.firstEstimationCo2());
       this.emissions = this.firstEstimationCo2();
       this.currentState=1;
 
-      console.log(this.emissions);
 
       setTimeout(async () => {
         this.emissions = await this.getInitialPageWeightInKB();
@@ -87,7 +85,6 @@ export class Co2Component {
       return sum + size;
     }, 0);
 
-    console.log(Number(this.getCo2byItem(totalBytes, false, this.gridIntensityOptionsDefault).toFixed(3)));
     return {
       weight: totalBytes,
       co2weight: Number(
@@ -124,7 +121,6 @@ export class Co2Component {
   }
 
   async getPageValues(pageValues, relevantResources) {
-    console.log("Calculating page values for resources:", relevantResources);
     if (relevantResources.length === 0) return pageValues;
 
     for (const res of relevantResources) {
@@ -144,7 +140,6 @@ export class Co2Component {
         const co2CalculOptions = await this.retryOperation(() =>
           this.getOptionsCo2(size, domain)
         );
-        console.log("last step before co2 calculation");
         const co2weightResult = this.getCo2byItem(
           size,
           isgreen,
@@ -152,12 +147,12 @@ export class Co2Component {
         );
 
         pageValues.co2weight += co2weightResult;
-        console.log(co2weightResult);
       } catch (error) {
         console.error("Error processing resource:", res.name, error);
       }
       this.lastStartTime = res.startTime;
     }
+    console.log("Page values updated:", pageValues);
     return pageValues;
   }
 
@@ -217,11 +212,9 @@ export class Co2Component {
   }
 
   getCo2byItem(item, greenHosting, options) {
-    console.log("Calculating CO2 for item:", item);
     try {
       const oneByte = new co2({ model: "1byte" });
       const result = oneByte.perByteTrace(item, greenHosting, options);
-      console.log("CO2 Calculation Result:", result);
       return Number(result.co2);
     } catch (err) {
       console.error("Erreur calcul CO2:", err);

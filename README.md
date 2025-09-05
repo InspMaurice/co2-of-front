@@ -33,7 +33,7 @@ In case of use in a framework like angular, the metrics car be dynamically use i
 <p>CO₂ : {{ co2Component.emissions.co2weight }} g</p>
 ```
 
-If manual getting the metrics is required, you can use 
+If manually getting the metrics is required, you can use 
 ```javascript
 getCurrectCo2()
 ```
