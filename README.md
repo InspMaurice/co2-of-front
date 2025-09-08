@@ -2,6 +2,7 @@
 This library is a use of @tgwf/co2 to mesure the co2 produced by a webpage, directly in the web page.
 It checks every ressource of the page, and depending on the weight and the domain, determine the co2 produced by it.
 It also uses some of the greenweb foundation APIs to determine if the server hosting the ressource is green, and what is his gCO2/kWh if its listed.
+(this is still just a test done by a intern)
 
 
 ## Installation
@@ -37,6 +38,39 @@ If manually getting the metrics is required, you can use
 ```javascript
 getCurrectCo2()
 ```
+To time this call, you'll need to use "currentState". 
+A currentState = 0 means nothing has been calculated.
+A currentState = 1 means the first estimation is finished.
+A currentState = 2 means the complexe estimation is finished.
+
+Here is an example of how it could be done : 
+```javascript
+window.addEventListener("load", async () => {
+    await checkForUpdateCo2();
+});
+
+async function checkForUpdateCo2() {
+    while (co2Component.currentState == 0) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    updateCo2();
+    while (co2Component.currentState == 1) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+    updateCo2();
+
+}
+
+function updateCo2() {
+    const co2temp = co2Component.getCurrentCo2();
+    console.log("Current CO2:", co2temp);
+    const emissionsEl = document.querySelector(".emissions");
+    if (emissionsEl) {
+        emissionsEl.innerHTML = `CO₂: ${co2temp.co2weight} g (Page weight: ${co2temp.weight/1000} Ko)`;
+    }
+}
+```
+
 
 ### Analyse over time
 
@@ -50,7 +84,8 @@ For the update to work, a call to
 co2Component.doCheck()
 ```
 
-need to be done every X time, for example in angular, 
+You'll need to call this function every X ms, depending on your own preferences.
+This is the simpliest way in angular.
 ```typescript
 ngDoCheck() {
     this.co2Component.doCheck();
