@@ -19,6 +19,17 @@ The first one will give you only the weight and co2 production at the end of the
 The second one will allow you to have metrics that update everytime a new ressource is loaded into the page.
 This second option shouldn't be used in a website in production, as it will use more processor, then goes against green practices which is not the goal of this library.
 
+Before using one of the component, you can (and should) change the default options of co2/kWh that will be used if values cannot be found.
+You can change it by using ```changeDefaultGridIntensity(newIntensity)```, with "newIntensity" as it follows :
+``` javascript
+gridIntensity: {
+    device: { country: "FRA" },
+    dataCenter: 207,
+    network: { country: "FRA" }
+}
+```
+device and network need to be an object with the code Apha-3 ISO of the country needed, and dataCenter a number.
+
 ### One time analyse
 
 For mesuring the weight and emissions on the load of the page, you just need to create a new component. 

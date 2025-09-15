@@ -242,4 +242,9 @@ export class Co2Component {
       return 0;
     }
   }
+
+  // Method to change the default grid intensity options
+  changeDefaultGridIntensity(newIntensity) {
+    this.gridIntensityOptionsDefault = newIntensity;
+  }
 }
