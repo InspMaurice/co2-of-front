@@ -25,6 +25,20 @@ export class Co2Component {
   lastStartTime = 0;
   componentsDeltaCheck = [];
 
+  /*
+  List of variables:
+  emissions: Object holding the current emissions data (weight and co2weight).
+  allowCheck: Boolean flag to indicate if further checks are allowed (useful only if the ExtendedCo2Component is used).
+  currentState: Integer representing the current state of the component (0: initial, 1: after first estimation, 2: after detailed calculation).
+  #MAX_RETRIES: Private constant defining the maximum number of retries for network operations.
+  #RETRY_DELAY: Private constant defining the base delay (in ms) for retries, which increases exponentially with each attempt.
+  #EXCLUDED_DOMAINS: Array of the domains used to fetch data for CO2 calculations, which should be excluded from the emissions calculations (logical reason).
+  gridIntensityOptionsDefault: Default options for grid intensity used in CO2 calculations when specific data is unavailable.
+  lastStartTime: Timestamp of the last resource check, used to filter new resources.
+  componentsDeltaCheck: Array holding resources that have been checked since the last reset, useful for delta calculations.
+  */
+  
+
   constructor() {
     window.addEventListener("load", async () => {
       this.emissions = this.firstEstimationCo2();
@@ -75,6 +89,7 @@ export class Co2Component {
     throw lastError;
   }
 
+  // Simple initial estimation based on resources loaded at page load
   firstEstimationCo2() {
     const relevantResources = this.getRelevantResources(0);
     this.resetState();
@@ -93,6 +108,7 @@ export class Co2Component {
     };
   }
 
+  // Detailed calculation after initial estimation, considering all resources loaded after page load
   async getInitialPageWeightInKB() {
     const relevantResources = this.getRelevantResources(0);
     let pageValues = { weight: 0, co2weight: 0 };
@@ -103,7 +119,7 @@ export class Co2Component {
   }
 
 
-
+  // Get resources loaded after a specific start time, excluding certain domains
   getRelevantResources(startTime) {
     const resources = performance.getEntriesByType("resource");
     const relevantResources = resources.filter(res => res.startTime > startTime);
@@ -120,6 +136,7 @@ export class Co2Component {
     return filteredResources;
   }
 
+  // Process each resource to calculate total weight and CO2 emissions  
   async getPageValues(pageValues, relevantResources) {
     if (relevantResources.length === 0) return pageValues;
 
@@ -156,6 +173,7 @@ export class Co2Component {
     return pageValues;
   }
 
+  // Get the IP address of a domain using DNS over HTTPS
   async getDomainIP(domain) {
     try {
       const response = await fetch(
@@ -172,6 +190,7 @@ export class Co2Component {
     return null;
   }
 
+  // Check if a domain is hosted on green energy
   async getIsGreen(domain) {
     try {
       const response = await fetch(
@@ -184,6 +203,7 @@ export class Co2Component {
     }
   }
 
+  // Get CO2 intensity options based on the IP address of the domain (if its values are known)
   async getOptionsCo2(size, domain) {
     const ipAddress = await this.retryOperation(() => this.getDomainIP(domain));
     let options;
@@ -211,6 +231,7 @@ export class Co2Component {
     return options;
   }
 
+  // Calculate CO2 emissions for a given item size, considering if the hosting is green and specific options
   getCo2byItem(item, greenHosting, options) {
     try {
       const oneByte = new co2({ model: "1byte" });

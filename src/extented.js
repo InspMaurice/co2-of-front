@@ -1,17 +1,8 @@
 import { Co2Component } from "./functions";
 
 class ExtendedCo2Component extends Co2Component {
-    // Boucle continue → remplace ngDoCheck
-    // Décommentez pour activer la boucle automatique
-    // constructor() {
-    //   super();
-    //   const checkLoop = () => {
-    //     this.doCheck();
-    //     requestAnimationFrame(checkLoop);
-    //   };
-    //   requestAnimationFrame(checkLoop);
-    // }
 
+    // Start monitoring resources after initial load
     doCheck() {
         if (!this.allowCheck) return;
 
@@ -26,7 +17,7 @@ class ExtendedCo2Component extends Co2Component {
 
             setTimeout(async () => {
                 try {
-                    this.emissions = await this.getUpdatedPageWeightInKB(this.emissions);
+                    this.emissions = await this.getUpdatedPageWeight(this.emissions);
                 } catch (err) {
                     console.error("Erreur lors de la mise à jour CO2:", err);
                 }
@@ -35,7 +26,8 @@ class ExtendedCo2Component extends Co2Component {
         }
     }
 
-    async getUpdatedPageWeightInKB(pageValues) {
+    // Get updated page weight and CO2 emissions considering new resources loaded since last check
+    async getUpdatedPageWeight(pageValues) {
         const relevantResources = this.getRelevantResources(this.lastStartTime);
         pageValues = await this.getPageValues(pageValues, relevantResources);
         pageValues.co2weight = Number(pageValues.co2weight.toFixed(3));
